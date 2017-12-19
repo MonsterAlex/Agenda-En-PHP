@@ -1,33 +1,56 @@
 <?php
 
-    include('conector.php');
-    
-    $data['Nombre'] = "'".$_POST['Nombre']."'";
-    $data['Apellidos'] = "'".$_POST['Apellidos']."'";
-    $data['Correo'] = "'".$_POST['Correo']."'";
-    $data['Contrasena'] = "'".password_hash($_POST['Contrasena'], PASSWORD_DEFAULT)."'";
-    $data['Fecha_Nacimiento'] = "'".$_POST['Fecha_Nacimiento']."'";
+    require('conector.php');
 
-    $con = new ConectorBD('localhost','root','123456');
-    $response['conexion'] = $con->initConexion('agenda');
+    $con = new ConectorBD();
 
-    if ($response['conexion']=='OK') 
+    if ($con->initConexion()=='OK')
     {
-        if($con->insertData('usuarios', $data))
+        $nombre = "Alejandro";
+        $apellido = "Reyes";
+        $correo = "MonsterAlex@gmail.com";
+        $password = "123456";
+        $fecnac = "1994/08/21";
+        
+
+        if ($con->insertData('usuarios', $nombre, $apellido, $correo, $password, $fecnac)) 
         {
-            $response['msg']="Se a Registrado con Exito el usuario";
+            echo "Se han registrado los datos correctamente";
         }
         else 
+            echo "Se ha producido un error en la actualización";
+
+        $nombre = "Asuna";
+        $apellido = "Yuki";
+        $correo = "yukiA@gmail.com";
+        $password = "1234";
+        $fecnac = "1995/11/22";
+
+        if ($con->insertData('usuarios', $nombre, $apellido, $correo, $password, $fecnac)) 
         {
-            $response['msg']= "Hubo un error y los datos no han sido guardados";
+            echo "Se han registrado los datos correctamente";
         }
+        else 
+            echo "Se ha producido un error en la actualización";
+
+        $nombres = "Angela";
+        $apellido = "Sigler";
+        $correo = "Mercy@gmail.com";
+        $password = "12345";
+        $fecnac = "1980/08/21";
+
+        if ($con->insertData('usuarios', $nombre, $apellido, $correo, $password, $fecnac)) 
+        {
+            echo "Se han registrado los datos correctamente";
+        }
+        else 
+            echo "Se ha producido un error en la actualización";
+
+        $con->cerrarConexion();
     }
     else 
     {
-        $response['msg']= "No se pudo conectar a la base de datos";
+        echo "Se presentó un error en la conexión";
     }
-
-    echo json_encode($response);
-
-
+   
  ?>
