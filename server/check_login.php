@@ -5,17 +5,17 @@
     
     $con = new ConectorBD();
 
-    $passw=$_POST["password"];
-    $email=$_POST["username"];
+    $password=$_POST["password"];
+    $correo=$_POST["username"];
 
     if ($con->initConexion()=='OK')
     {
-        $resul=$con->datosUsuario($email);
+        $resul=$con->datosUsuario($correo);
 
         while ($rows = $resul->fetch_array()) 
         {
 		 
-            if(password_verify($passw,$rows["password"])) 
+            if(password_verify($password,$rows["password"])) 
             {
                 $_SESSION['id'] = $rows["id"];
 

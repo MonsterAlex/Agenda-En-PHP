@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-12-2017 a las 02:02:45
+-- Tiempo de generación: 20-12-2017 a las 22:47:48
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS `evento` (
   `Hora_Fin` time NOT NULL,
   `Completo` tinyint(1) NOT NULL,
   `usuario_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `usuario_evento` (`usuario_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 -- --------------------------------------------------------
@@ -55,8 +56,19 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `correo` varchar(40) NOT NULL,
   `password` varchar(70) NOT NULL,
   `fecnac` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `correo` (`correo`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `correo`, `password`, `fecnac`) VALUES
+(1, 'Alejandro', 'Reyes', 'MonsterAlex@gmail.com', '123456', '1994-08-21'),
+(2, 'Asuna', 'Yuki', 'yukiA@gmail.com', '1234', '1995-11-22'),
+(3, 'Asuna', 'Sigler', 'Mercy@gmail.com', '12345', '1980-08-21'),
+(4, 'Diego', 'Gil', 'Ale@gmail.com', '123456789', '1999-02-12');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

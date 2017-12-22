@@ -21,15 +21,15 @@
             }
         }
 
-        function datosUsuario($email)
+        function datosUsuario($correo,$password)
         {
-            $sql="SELECT * FROM usuarios WHERE correo='".$email."'";
+            $sql="SELECT * FROM usuarios WHERE correo='$correo' and password='$password'";
             return $this->ejecutarQuery($sql);
         }
 
         function obtenerEventos($id)
         {
-            $sql="SELECT id,Descripcion,Fecha_Inicio,Fecha_Fin FROM evento WHERE usuario_id='".$id."'";
+            $sql="SELECT Descripcion,Fecha_Inicio,Fecha_Fin FROM evento WHERE usuario_id='".$id."'";
             return $this->ejecutarQuery($sql);
         }
 
@@ -83,12 +83,37 @@
             return $this->ejecutarQuery($sql);
         }
 
-        function insertData($tabla, $nombre, $apellido, $correo, $password, $fecnac)
+        function insertUser($tabla, $nombre, $apellido, $correo, $password, $fecnac)
         {
             $sql = "INSERT INTO $tabla (nombre, apellido, correo, password, fecnac) VALUES ('$nombre','$apellido','$correo','$password','$fecnac')"; 
 
             return $this->ejecutarQuery($sql);
-
+        }
+        
+        function insertData($tabla, $data){
+            $sql = 'INSERT INTO '.$tabla.' (';
+            $i = 1;
+            foreach ($data as $key => $value) {
+                $sql .= $key;
+                if ($i<count($data)) 
+                {
+                    $sql .= ', ';
+                }
+                else $sql .= ')';
+                    $i++;
+            }
+            $sql .= ' VALUES (';
+            $i = 1;
+            foreach ($data as $key => $value) {
+                $sql .= $value;
+                if ($i<count($data)) 
+                {
+                    $sql .= ', ';
+                }
+                else $sql .= ');';
+                    $i++;
+            }
+            return $this->ejecutarQuery($sql);
         }
 
         function getConexion()
