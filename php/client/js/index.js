@@ -28,7 +28,6 @@ class Login {
       data: form_data,
       type: 'POST',
       success: function(php_response){
-        console.log(php_response);  
         if (php_response.msg == "OK") {
           window.location.href = 'main.html';
         }else {
