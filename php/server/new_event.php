@@ -8,20 +8,20 @@
         $con = new ConectorBD();
         if ($con->initConexion('agenda')=="OK") 
         {
-            $data['Descripcion']='"'.$_POST['titulo'].'"';
-            $data['Fecha_Inicio']='"'.$_POST['start_date'].'"';
-            $data['Fecha_Fin']='"'.$_POST['end_date'].'"';
-            $data['Hora_Inicio']='"'.$_POST['start_hour'].'"';
-            $data['Hora_Fin']='"'.$_POST['end_hour'].'"';
-            $data['usuario_id']='"'.$_SESSION['username'].'"';
+            $data['titulo']='"'.$_POST['titulo'].'"';
+            $data['start_date']='"'.$_POST['start_date'].'"';
+            $data['end_date']='"'.$_POST['end_date'].'"';
+            $data['start_hour']='"'.$_POST['start_hour'].'"';
+            $data['end_hour']='"'.$_POST['end_hour'].'"';
+            $data['fk_usuario']='"'.$_SESSION['username'].'"';
     
-            if ($_POST['Completo']=="true") 
+            if ($_POST['allDay']=="true") 
             {
-                $data['Completo']=1;
+                $data['allDay']=1;
             }
             else 
             {
-                $data['Completo']=0;
+                $data['allDay']=0;
             }
 
             if ($con->insertData('evento',$data)) 
@@ -30,7 +30,7 @@
             }
             else 
             {
-                $response['msg']= "No se pudo añadir el registro";
+                $response['msg']= "Error al Guardar el evento";
             }
         }
         else 

@@ -1,0 +1,5 @@
+1.-Para crear nuevos usuarios abrir el archivo "create_user" de la carpeta server y modificar lo
+2.-Ejecutar localhost/server/create_user para crear los usuarios (o la ruta correcta en donde se guarde el archivo)
+3.-Pueden ingresar con el usuario que yo eh creado: MirandaR@gmail.com Contraseña: 123456
+
+en caso de que el create_user no funcione verificar que el correo no exista, ya que en la base de datos es un campo unico

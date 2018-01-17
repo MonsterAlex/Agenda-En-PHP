@@ -1,5 +1,4 @@
 <?php
-  
     require('conector.php');
     session_start();
 
@@ -8,32 +7,30 @@
         $con = new ConectorBD();
         if ($con->initConexion('agenda')=="OK") 
         {
-            $resultado = $con->consultar(['evento'], ['*'], 'WHERE usuario_id ="'.$_SESSION['username'].'"');
+            $resultado = $con->consultar(['evento'], ['*'], 'WHERE fk_usuario ="'.$_SESSION['username'].'"');
             if ($resultado) 
             {
                 $i=0;
                 while ($fila = $resultado->fetch_assoc()) 
                 {
                     $response['evento'][$i]['id']=$fila['id'];
-                    $response['evento'][$i]['title']=$fila['Descripcion'];
-                    
-                    if ($fila['Completo']==1) 
+                    $response['evento'][$i]['title']=$fila['titulo'];
+                    if ($fila['allDay']==0) 
                     {
-                        $response['evento'][$i]['Completo']=true;
-                        $response['evento'][$i]['start']=$fila['Fecha_Inicio'];
-                        $response['evento'][$i]['end']=$fila['Fecha_Fin'];
+                        $response['evento'][$i]['allDay']=true;
+                        $response['evento'][$i]['start']=$fila['start_date'];
+                        $response['evento'][$i]['end']=$fila['end_date'];
                     }
                     else 
                     {
-                        $response['evento'][$i]['Completo']=false;
-                        $response['evento'][$i]['start']=$fila['Fecha_Inicio']." ".$fila['Hora_Inicio'];
-                        $response['evento'][$i]['end']=$fila['Fecha_Fin']." ".$fila['Hora_Fin'];
+                        $response['evento'][$i]['allDay']=false;
+                        $response['evento'][$i]['start']=$fila['start_date']." ".$fila['start_hour'];
+                        $response['evento'][$i]['end']=$fila['end_date']." ".$fila['end_hour'];
                     }
                     $i++;
                 }
                 $response['msg'] = "OK";
             }
-
         }
         else 
         {
@@ -46,5 +43,4 @@
     }
 
     echo json_encode($response);
-
- ?>
+?>

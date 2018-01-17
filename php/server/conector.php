@@ -77,6 +77,27 @@
       return $this->ejecutarQuery($sql);
 
     }
+    
+    function insertarRegistro($tabla, $datos){
+        $sqlInsert = 'INSERT INTO '.$tabla;
+
+        $sqlCampo = ' (';
+        $sqlValor = ') VALUES (';
+        $contador = 1;
+        foreach ($datos as $indice => $value) {
+            $sqlCampo .= $indice;
+            $sqlValor .= '"'.$value.'"';
+            if ($contador!=count($datos)) {
+                $sqlCampo .= ', ';
+                $sqlValor .= ', ';
+            }else{
+                $sqlValor .=');';
+            }
+            $contador += 1;
+        }
+        $sqlInsert .= $sqlCampo.$sqlValor;
+        return $this->conexion->query($sqlInsert);
+    }  
 
     function getConexion(){
       return $this->conexion;

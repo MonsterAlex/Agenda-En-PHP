@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 11-01-2018 a las 02:35:34
+-- Tiempo de generación: 12-01-2018 a las 01:09:42
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -31,15 +31,15 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `evento`;
 CREATE TABLE IF NOT EXISTS `evento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(100) NOT NULL,
-  `Fecha_Inicio` date NOT NULL,
-  `Fecha_Fin` date NOT NULL,
-  `Hora_Inicio` time NOT NULL,
-  `Hora_Fin` time NOT NULL,
-  `Completo` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
+  `titulo` varchar(100) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `start_hour` time NOT NULL,
+  `end_hour` time NOT NULL,
+  `fk_usuario` int(11) NOT NULL,
+  `allDay` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `usuario_evento` (`usuario_id`)
+  KEY `usuario_evento` (`fk_usuario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=armscii8;
 
 -- --------------------------------------------------------
