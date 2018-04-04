@@ -16,7 +16,8 @@ class EventManager {
 
     eliminarEvento(evento) {
         let eventId = evento.id
-        $.post('/events/delete/'+eventId, {id: eventId}, (response) => {
+        //$.post('/events/delete/'+eventId, {id: eventId}, (response) => {
+        $.post('/events/delete/', {id: eventId}, (response) => {
             alert(response)
         })
     }
@@ -80,6 +81,38 @@ class EventManager {
         })
     }
 
+    actualizarEvento(evento) {
+      let id = evento.id,
+          start = moment(evento.start).format('YYYY-MM-DD HH:mm:ss'),
+          end = moment(evento.end).format('YYYY-MM-DD HH:mm:ss'),
+          form_data = new FormData(),
+          start_date,
+          end_date,
+          start_hour,
+          end_hour
+
+      start_date = start.substr(0,10)
+      end_date = end.substr(0,10)
+      start_hour = start.substr(11,8)
+      end_hour = end.substr(11,8)
+
+      var newStart = start_date + "T" + start_hour;
+      var newEnd = end_date + "T" + end_hour;
+
+      let url = this.urlBase + "/update"
+
+      let ev = {
+          id: id,
+          start: newStart,
+          end: newEnd
+      }
+
+      $.post(url, ev, (response) => {
+          alert(response)
+      })
+
+    }
+
     inicializarCalendario(eventos) {
         $('.calendario').fullCalendar({
             header: {
@@ -87,7 +120,7 @@ class EventManager {
                 center: 'title',
                 right: 'month,agendaWeek,basicDay'
             },
-            defaultDate: '2016-11-01',
+            defaultDate: '2017-12-01',
             navLinks: true,
             editable: true,
             eventLimit: true,
